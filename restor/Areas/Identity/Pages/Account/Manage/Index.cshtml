@@ -1,0 +1,55 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h4>Профиль</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.Username"></label>
+                <input asp-for="Input.Username" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger" ></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.FirstName"></label>
+                <input asp-for="Input.FirstName" class="form-control" disabled/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="form-control" disabled/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Position"></label>
+                <input asp-for="Input.Position " class="form-control" disabled placeholder="Для получения должности, пройдите тест" />
+            </div>
+            <div class="form-group">
+                @if (User.Identity.IsAuthenticated && (Model.Position == string.Empty || Model.Position == null))
+                {
+                <div class="row">
+                    <div class="col">
+                        <a href="" class="btn btn-primary">Пройти тест</a>
+                    </div>
+                    <div class="col">
+                        
+                    </div>
+                </div>
+                }
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-primary btn-block">Сохранить</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
